@@ -29,6 +29,14 @@ Para instalar y ejecutar el proyecto en tu entorno local, sigue estos pasos:
     cp .env.example .env
     ```
 
+  Asegúrate de agregar las siguientes credenciales de Google OAuth para la autenticación:
+
+    ```dotenv
+    GOOGLE_CLIENT_ID=tu-google-client-id
+    GOOGLE_CLIENT_SECRET=tu-google-client-secret
+    GOOGLE_REDIRECT_URI=tu-google-redirect-uri
+    ```
+
 4. **Generar clave de aplicación**:
     ```bash
     php artisan key:generate
