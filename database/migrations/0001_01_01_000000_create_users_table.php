@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('personas_id');
+            $table->foreign('personas_id')->references('id')->on('personas')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->integer('estado')->default(1);
             $table->timestamps();
         });
 
@@ -34,6 +38,7 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
+            $table->boolean('active')->nullable();
         });
     }
 
