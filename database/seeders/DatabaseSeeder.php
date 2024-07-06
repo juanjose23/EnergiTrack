@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
         $this->call(modulos::class);
         $this->call(submodulos::class);
         $this->call(permisos::class);
@@ -24,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesUsuariosSeeders::class);
         $this->call(PrivilegiosSeeders::class);
         $this->call(PermisosRolesSeeders::class);
-
+        $this->call(CategoriasSeeders::class);
+        $this->call(CondicionesSeeders::class);
+        
     }
 }

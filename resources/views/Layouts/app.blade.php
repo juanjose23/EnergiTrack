@@ -51,6 +51,10 @@
                         class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
                         <i class="bx bx-chevron-left bx-sm align-middle"></i>
                     </a>
+                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+                        <i class='bx bxs-bolt bx-tada' ></i>
+                      </a>
+                   
                 </div>
 
                 <div class="menu-inner-shadow"></div>
@@ -256,8 +260,10 @@
 
     <script>
         $(function() {
-            //Initialize Select2 Elements
-            $('.select2').select2()
+            $('.select2').select2({
+                theme: 'bootstrap4',
+                placeholder: "Seleccione una o más opciones"
+            });
 
             //Initialize Select2 Elements
             $('.buscador').select2({

@@ -31,7 +31,7 @@ Para instalar y ejecutar el proyecto en tu entorno local, sigue estos pasos:
 
   Asegúrate de agregar las siguientes credenciales de Google OAuth para la autenticación:
 
-    ```dotenv
+    ```.env
     GOOGLE_CLIENT_ID=tu-google-client-id
     GOOGLE_CLIENT_SECRET=tu-google-client-secret
     GOOGLE_REDIRECT_URI=tu-google-redirect-uri

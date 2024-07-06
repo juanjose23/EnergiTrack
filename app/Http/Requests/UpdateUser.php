@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUser extends FormRequest
 {
@@ -21,20 +22,36 @@ class UpdateUser extends FormRequest
      */
     public function rules(): array
     {
+        $usuarios = $this->route('usuarios');
         return [
-            //
-            'roles' => 'required|exists:roles,id', // Verifica que el rol seleccionado exista en la tabla 'roles'
-            'estado' => 'required|in:1,0', // Verifica que el estado seleccionado sea 1 o 0
+            'nombre' => [
+                'nullable',
+                'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/'
+            ],
+            'apellido' => [
+                'nullable',
+                'regex:/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/'
+            ],
+            'telefono' => [
+                'nullable',
+                Rule::unique('personas')->ignore($usuarios->personas_id)
+            ],
+            'identificacion' => [
+                'nullable',
+                'regex:/^\d{3}-\d{6}-\d{4}[a-zA-Z]$/',
+                Rule::unique('personas')->ignore($usuarios->personas_id)
+            ],
+            'roles' => [
+                'nullable',
+                'sometimes',
+                'exists:roles,id'
+            ],
+            'estado' => [
+                'nullable',
+                'in:1,0'
+            ],
         ];
     }
-    public function messages(): array
-    {
-        return [
-            
-            'roles.required' => 'Por favor selecciona un rol.',
-            'roles.exists' => 'El rol seleccionado no es válido.',
-            'estado.required' => 'Por favor selecciona un estado.',
-            'estado.in' => 'El estado seleccionado no es válido.',
-        ];
-    }
+    
+
 }

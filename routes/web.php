@@ -6,6 +6,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ExportacionesController;
 use App\Http\Controllers\Page\Home;
 use App\Http\Controllers\PermisosController;
+use App\Http\Controllers\Planes\CategoriasController;
+use App\Http\Controllers\Planes\PlanesController;
+use App\Http\Controllers\Planes\PreciosController;
 use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
@@ -28,6 +31,12 @@ Route::post('/auth/password/reset/process', [LoginController::class, 'resetPassw
 Route::post('/validarLogin', [LoginController::class, 'validarLogin'])->name('validarLogin');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
+//Gestion de planes
+Route::resource('categorias',CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias')->middleware('checkRole:1');
+Route::resource('plan',PlanesController::class)->parameters(['plan' => 'plan'])->names('plan')->middleware('checkRole:2');
+Route::post('/nuevascondiciones', [PlanesController::class, 'nuevascondiciones'])->name('plan.nuevascondiciones')->middleware('checkRole:2');
+Route::delete('/plan/destroycon/{id}', [PlanesController::class, 'destroycon'])->name('plan.destroycon')->middleware('checkRole:2');
+Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:3');
 
 //Gestion de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('checkRole:9');
