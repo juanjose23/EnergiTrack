@@ -136,7 +136,16 @@ class LoginController extends Controller
 
             $user->save();
             $user->sendEmailVerificationNotification();
-
+            if ($request->has('persona')) {
+                $rol=2;
+            } else {
+                $rol=1;
+            }
+            $userRol = new RolesUsuarios();
+            $userRol->roles_id = $rol;
+            $userRol->users_id = $user->id;
+            $userRol->estado = 1;
+            $userRol->save();
 
             return redirect()->route('login')->with('success', 'Se ha enviado un correo de verificacion');
         } catch (ValidationException $e) {

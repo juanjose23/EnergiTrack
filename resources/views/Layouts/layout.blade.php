@@ -32,7 +32,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('Page/css/style.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
 </head>
 
 <body class="container-xxl bg-white p-0">
@@ -52,7 +52,8 @@
         <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
             <a href="" class="navbar-brand d-flex align-items-center text-center">
                 <div class="icon p-2 me-2">
-                    <img class="img-fluid" src="{{asset('page/img/Logo.png')}}" alt="Icon"  width="50" height="50">
+                    <img class="img-fluid" src="{{ asset('page/img/Logo.png') }}" alt="Icon" width="50"
+                        height="50">
                 </div>
                 <h1 class="m-0 text-primary">EnergiTrack</h1>
             </a>
@@ -67,15 +68,17 @@
                         class="nav-item nav-link{{ Request::is('acerca') ? ' active' : '' }}">Acerca</a>
                     <a href="{{ route('contacto') }}"
                         class="nav-item nav-link{{ Request::is('contacto') ? ' active' : '' }}">Contacto</a>
+                    <a href="{{ route('subcripciones') }}"
+                        class="nav-item nav-link{{ Request::is('subcripciones') ? ' active' : '' }}">Planes</a>
                 </div>
                 @guest
                     <a href="{{ route('login') }}" class="btn btn-primary px-3 d-none d-lg-flex">Adquiere tu plan</a>
-                  
                 @else
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img src="{{ Session::get('Foto') }}" class="rounded-circle" alt="Foto de perfil" width="50"
-                            height="50"></a>
-                        
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img
+                                src="{{ Session::get('Foto') }}" class="rounded-circle" alt="Foto de perfil" width="50"
+                                height="50"></a>
+
                         <div class="dropdown-menu rounded-0 m-0">
                             <li><a class="dropdown-item" href="{{ route('acerca') }}">Perfil</a></li>
                             <li><a class="dropdown-item" href="{{ route('acerca') }}">Mis Planes</a></li>
@@ -109,7 +112,8 @@
                     <p class="mb-2">Telefax (505) 2267-3709</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i
+                                class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i
                                 class="fab fa-linkedin-in"></i></a>

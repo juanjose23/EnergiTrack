@@ -113,7 +113,18 @@
                                     
                                 </div>
                             </div>
-
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="persona" name="persona" value="1" {{ old('terms') ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="persona">
+                                     <a href="javascript:void(0);">¿Eres empresa ?</a>
+                                    </label>
+                                    @error('terms')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    
+                                </div>
+                            </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" type="submit">Registrarte</button>
                             </div>

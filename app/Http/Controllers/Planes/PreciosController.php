@@ -45,7 +45,7 @@ class PreciosController extends Controller
     //
     public function edit(Precios $precios)
     {
-        $precio = Precios::with(['planes'])->findOrFail($precios->id);
+        $precio = Precios::with(['planes'])->where('planes_id',$precios->id)->first();
         $planes = Planes::findOrFail($precio->planes_id);
         $historial = Precios::where('planes_id', $planes->id)->get();
         return view('Gestion_Planes.Precios.edit', compact('precio', 'planes', 'historial'));
@@ -53,9 +53,7 @@ class PreciosController extends Controller
     public function update(StorePrecios $request, $precios)
     {
         //Cambiar estado del precio anterior
-        $precio = Precios::findOrFail($precios);
-        $precio->estado = 2;
-        $precio->save();
+        Precios::where('planes_id', $request->planes)->update(['estado' => 0]);
 
         $preciosN = new Precios();
         $preciosN->planes_id = $request->planes;

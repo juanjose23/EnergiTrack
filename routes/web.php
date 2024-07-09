@@ -11,12 +11,20 @@ use App\Http\Controllers\Planes\PlanesController;
 use App\Http\Controllers\Planes\PreciosController;
 use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Ventas\ClientesController;
+use App\Http\Controllers\Ventas\VentasController;
 use Illuminate\Support\Facades\Route;
+
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
 
 Route::get('/',[Home::class, 'index'])->name('inicio');
 Route::get('acerca',[Home::class, 'nosotros'])->name('acerca');
 Route::get('contacto',[Home::class, 'contacto'])->name('contacto');
+Route::get('subcripciones',[Home::class, 'subcripciones'])->name('subcripciones');
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
@@ -38,6 +46,10 @@ Route::post('/nuevascondiciones', [PlanesController::class, 'nuevascondiciones']
 Route::delete('/plan/destroycon/{id}', [PlanesController::class, 'destroycon'])->name('plan.destroycon')->middleware('checkRole:2');
 Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:3');
 
+//Gestion de ventas
+Route::resource('ventas',VentasController::class)->parameters(['ventas' => 'ventas'])->names('ventas')->middleware('checkRole:3');
+Route::resource('clientes',ClientesController::class)->parameters(['clientes' => 'clientes'])->names('clientes')->middleware('checkRole:3');
+
 //Gestion de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('checkRole:9');
 Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios')->middleware('checkRole:11');
@@ -47,3 +59,9 @@ Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyro
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf')->middleware('auth');
 
 Route::get('/error403',[AdminController::class,'error403'])->name('error403');
+
+Route::get('compra/{id}', [Home::class, 'compra'])->name('compra');
+
+Route::post('stripe', [StripeController::class, 'stripe'])->name('stripe');
+Route::get('success', [StripeController::class, 'success'])->name('success');
+Route::get('cancel', [StripeController::class, 'cancel'])->name('cancel');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use App\Models\Personas;
+use App\Models\RolesUsuarios;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use App\Models\User;
@@ -99,6 +100,7 @@ class GoogleController extends Controller
         $user->email = $googleEmail;
         $user->save();
 
+       
         // También actualiza los datos de la persona asociada si existe
         $persona = $user->persona;
         if ($persona) {
@@ -142,6 +144,12 @@ class GoogleController extends Controller
         $user->email = $googleEmail;
         $user->password = bcrypt(Str::random(24));
         $user->save();
+        
+        $userRol = new RolesUsuarios();
+        $userRol->roles_id = 1;
+        $userRol->users_id = $user->id;
+        $userRol->estado = 1;
+        $userRol->save();
 
         $imagen = new Media();
         $imagen->url = $googleProfile;
@@ -161,7 +169,7 @@ class GoogleController extends Controller
         $googleEmail = $googleUser['email'];
         $googleProfile = $googleUser['picture'];
 
-        Session::put('Id', $user->id);
+        Session::put('IdUser', $user->id);
         Session::put('Nombre', $googleNombre);
         Session::put('Email', $googleEmail);
         Session::put('Foto', $googleProfile);
